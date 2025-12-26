@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CookZen</title>
+  <link rel="icon" type="image/x-icon" href="./CookZen.png">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #f8f8f8;
+      padding-bottom: 80px;
+    }
+
+    body.red .footer {
+      background-color: #db3131;
+    }
+
+    body.orange .footer {
+      background-color: #ffb74d;
+    }
+
+    body.blue .footer {
+      background-color: #64b5f6;
+    }
+
+    body.purple .footer {
+      background-color: #ba68c8;
+    }
+
+    .footer {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 120px;
+      background: #db3131;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 32px;
+      z-index: 10;
+    }
+
+    .cookzen-title {
+      position: absolute;
+      bottom: 10px;
+      left: 20px;
+      font-size: 48px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .barre {
+      position: fixed;
+      top: 120px;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: black;
+      z-index: 9;
+    }
+
+    body > main {
+      margin: 140px 20px 100px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 2rem;
+    }
+
+    .option {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #eeeeee;
+      border-radius: 16px;
+      padding: 1rem 1.5rem;
+      margin-bottom: 1.2rem;
+      box-shadow: inset 2px 2px 6px #dcdcdc,
+                  inset -2px -2px 6px #ffffff;
+      transition: all 0.3s ease;
+    }
+
+    .option:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1),
+                  inset 2px 2px 6px #dcdcdc,
+                  inset -2px -2px 6px #ffffff;
+    }
+
+    .option label:first-child {
+      font-size: 1.1rem;
+      color: #333;
+      cursor: pointer;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 26px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      position: absolute;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 26px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #4caf50;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(22px);
+    }
+
+    input:checked + .slider.theme-red {
+      background-color: #db3131;
+    }
+
+    input:checked + .slider.theme-orange {
+      background-color: #ffb74d;
+    }
+
+    input:checked + .slider.theme-blue {
+      background-color: #64b5f6;
+    }
+
+    input:checked + .slider.theme-purple {
+      background-color: #ba68c8;
+    }
+
+    /* Styles pour le formulaire de suggestions */
+    .suggestion-form {
+      background: #eeeeee;
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      box-shadow: inset 2px 2px 6px #dcdcdc,
+                  inset -2px -2px 6px #ffffff;
+    }
+
+    .suggestion-form h2 {
+      color: #333;
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-family: sans-serif;
+      font-size: 1rem;
+      box-sizing: border-box;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #db3131;
+    }
+
+    body.orange .form-group input:focus,
+    body.orange .form-group textarea:focus {
+      border-color: #ffb74d;
+    }
+
+    body.blue .form-group input:focus,
+    body.blue .form-group textarea:focus {
+      border-color: #64b5f6;
+    }
+
+    body.purple .form-group input:focus,
+    body.purple .form-group textarea:focus {
+      border-color: #ba68c8;
+    }
+
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      background: #db3131;
+      color: white;
+      border: none;
+      padding: 0.8rem 2rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.3s ease;
+    }
+
+    body.orange .submit-btn {
+      background: #ffb74d;
+    }
+
+    body.blue .submit-btn {
+      background: #64b5f6;
+    }
+
+    body.purple .submit-btn {
+      background: #ba68c8;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    #message {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    #message.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    #message.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background: #fff;
+      border-top: 1px solid #ccc;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 20;
+    }
+
+    .nav-btn {
+      text-decoration: none;
+      background: none;
+      border: none;
+      font-size: 34px;
+      cursor: pointer;
+      color: #8f8989;
+    }
+
+    .nav-btn:focus {
+      outline: none;
+    }
+
+    @media (max-width: 480px) {
+      .footer { 
+        font-size: 24px; 
+        height: 110px; 
+      }
+      .barre { 
+        top: 110px; 
+      }
+      body > main {
+        margin: 130px 15px 90px;
+      }
+      .cookzen-title {
+        font-size: 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="footer">
+    <div class="cookzen-title">CookZen</div>
+  </div>
+
+  <div class="barre"></div>
+
+  <main>
+    <h1>Choisir un thème</h1>
+
+    <div class="option">
+      <label for="theme-red">Rouge</label>
+      <label class="switch">
+        <input type="radio" name="theme" id="theme-red" value="red" />
+        <span class="slider theme-red"></span>
+      </label>
+    </div>
+
+    <div class="option">
+      <label for="theme-orange">Orange</label>
+      <label class="switch">
+        <input type="radio" name="theme" id="theme-orange" value="orange" />
+        <span class="slider theme-orange"></span>
+      </label>
+    </div>
+
+    <div class="option">
+      <label for="theme-blue">Bleu</label>
+      <label class="switch">
+        <input type="radio" name="theme" id="theme-blue" value="blue" />
+        <span class="slider theme-blue"></span>
+      </label>
+    </div>
+
+    <div class="option">
+      <label for="theme-purple">Violet</label>
+      <label class="switch">
+        <input type="radio" name="theme" id="theme-purple" value="purple" />
+        <span class="slider theme-purple"></span>
+      </label>
+    </div>
+
+    <!-- Formulaire de suggestions -->
+    <div class="suggestion-form">
+      <h2>💡 Proposer une idée</h2>
+      <form id="suggestionForm">
+        <input type="hidden" name="_subject" value="Nouvelle idée CookZen">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        
+        <div class="form-group">
+          <input type="text" name="nom" placeholder="Votre nom" required>
+        </div>
+        
+        <div class="form-group">
+          <input type="email" name="email" placeholder="Votre email" required>
+        </div>
+        
+        <div class="form-group">
+          <textarea name="idee_recette" placeholder="Votre idée de recette" required></textarea>
+        </div>
+        
+        <div class="form-group">
+          <textarea name="suggestions" placeholder="Suggestions d'amélioration"></textarea>
+        </div>
+        
+        <button type="submit" class="submit-btn">Envoyer</button>
+      </form>
+      
+      <div id="message" style="display:none;"></div>
+    </div>
+  </main>
+
+  <div class="bottom-nav">
+    <a class="nav-btn" href="index.html">🏠</a>
+    <a class="nav-btn" href="favoris.html">❤️</a>
+    <a class="nav-btn" href="parametres.html">⚙️</a>
+  </div>
+
+<script>
+  function applyTheme(theme) {
+    document.body.className = theme;
+    if (theme) {
+      localStorage.setItem('cookzenTheme', theme);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const inputs = document.querySelectorAll('input[name="theme"]');
+    const savedTheme = localStorage.getItem('cookzenTheme');
+    if (savedTheme) {
+      const matchingInput = document.querySelector(`input[value="${savedTheme}"]`);
+      if (matchingInput) {
+        matchingInput.checked = true;
+        applyTheme(savedTheme);
+      }
+    }
+
+    inputs.forEach(input => {
+      input.addEventListener('change', () => {
+        if (input.checked) {
+          applyTheme(input.value);
+        }
+      });
+    });
+
+    document.querySelectorAll('.option label:first-child').forEach(label => {
+      label.addEventListener('click', () => {
+        const input = document.querySelector(`#${label.getAttribute('for')}`);
+        if (input) {
+          input.checked = true;
+          applyTheme(input.value);
+        }
+      });
+    });
+
+    // Afficher message de succès si l'URL contient ?success=1
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('success') === '1') {
+      const messageDiv = document.getElementById('message');
+      messageDiv.innerHTML = 'Merci ! Votre idée a bien été envoyée. 🎉';
+      messageDiv.className = 'success';
+      messageDiv.style.display = 'block';
+      
+      // Nettoyer l'URL après 3 secondes
+      setTimeout(() => {
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }, 3000);
+    }
+
+    // Gestion du formulaire AJAX avec FormSubmit
+    const form = document.getElementById('suggestionForm');
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const messageDiv = document.getElementById('message');
+        const submitBtn = form.querySelector('.submit-btn');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Envoi en cours...';
+        
+        const formData = new FormData(form);
+        
+        try {
+          const response = await fetch('https://formsubmit.co/ajax/cookzen3@gmail.com', {
+            method: 'POST',
+            body: formData
+          });
+          
+          const result = await response.json();
+          
+          if (response.ok) {
+            messageDiv.innerHTML = 'Merci ! Votre idée a bien été envoyée. 🎉';
+            messageDiv.className = 'success';
+            messageDiv.style.display = 'block';
+            form.reset();
+          } else {
+            throw new Error('Échec de l\'envoi');
+          }
+        } catch (error) {
+          messageDiv.innerHTML = 'Une erreur est survenue. Veuillez réessayer. ❌';
+          messageDiv.className = 'error';
+          messageDiv.style.display = 'block';
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Envoyer';
+        }
+      });
+    }
+  });
+</script>
+
+</body>
+</html>
