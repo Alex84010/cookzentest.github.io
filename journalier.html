@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CookZen</title>
+    <link rel="icon" type="image/x-icon" href="./CookZen.png">
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #f8f8f8;
+    }
+
+body.rouge {
+  background-color: #ffeded;
+  color: #a80000;
+}
+
+body.bleu {
+  background-color: #e6f0ff;
+  color: #003d99;
+}
+
+body.violet {
+  background-color: #f0e6ff;
+  color: #4b0082;
+}
+
+    body.red .footer {
+      background-color: #db3131;
+    }
+    body.orange .footer {
+      background-color: #ffb74d;
+    }
+    body.blue .footer {
+      background-color: #64b5f6;
+    }
+    body.purple .footer {
+      background-color: #ba68c8;
+    }
+
+    body.red .voir-btn, body.red .etape-btn {
+      background-color: #db3131;
+    }
+    body.orange .voir-btn, body.orange .etape-btn {
+      background-color: #ffb74d;
+    }
+    body.blue .voir-btn, body.blue .etape-btn {
+      background-color: #64b5f6;
+    }
+    body.purple .voir-btn, body.purple .etape-btn {
+      background-color: #ba68c8;
+    }
+    
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: #fff;
+  border-top: 1px solid #ccc;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 20;
+}
+
+.nav-btn {
+  text-decoration: none;
+  background: none;
+  border: none;
+  font-size: 34px;
+  cursor: pointer;
+  color: #8f8989;
+}
+
+.nav-btn:focus {
+  outline: none;
+}
+    
+    .footer {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 120px;
+      background: #db3131;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 32px;
+      z-index: 10;
+    }
+
+    .barre {
+      position: fixed;
+      top: 120px;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: black;
+      z-index: 9;
+    }
+
+    .contenu {
+  margin-top: 140px;
+  padding: 20px;
+  font-size: 18px;
+}
+
+@media (max-width: 480px) {
+  .contenu {
+    margin-top: 120px;
+  }
+}
+
+    .recette-item {
+      margin-bottom: 30px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 15px;
+      position: relative;
+    }
+
+    .recette-title {
+      font-size: 20px;
+      font-weight: bold;
+      padding-left: 40px;
+    }
+
+    .voir-btn, .etape-btn {
+      margin-top: 6px;
+      padding: 6px 12px;
+      font-size: 14px;
+      background: #db3131;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-block;
+      transition: background-color 0.3s ease;
+    }
+
+    .search-input {
+  display: block;
+  margin: 0 auto 20px auto;
+  padding: 10px;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+    .recette-content {
+      display: none;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+
+    .recette-content.active {
+      display: block;
+    }
+
+    .heart {
+      font-size: 26px;
+      color: #db3131;
+      cursor: pointer;
+      position: absolute;
+      left: 0;
+      top: 0;
+      transition: 0.3s;
+    }
+
+    .heart.fav {
+      color: red;
+    }
+
+    #filter-btn {
+      margin-bottom: 30px;
+      padding: 10px 20px;
+      background-color: #5865F2;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    #filter-btn:hover {
+      background-color: #404EED;
+    }
+
+    @media (max-width: 480px) {
+      .footer { font-size: 24px; height: 110px; }
+      .barre { top: 110px; }
+      .discord-zone img { width: 60px; height: 60px; }
+      .discord-zone span { font-size: 12px; }
+      .recette-title { font-size: 18px; }
+    }
+
+    .cookzen-title {
+  position: absolute;
+  bottom: 10px;
+  left: 20px;
+  font-size: 48px;
+  font-weight: bold;
+  color: white;
+}
+
+    #lang-btn {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  background: white;
+  color: #db3131;
+  border: none;
+  border-radius: 5px;
+  font-size: 24px;
+  padding: 6px 10px;
+  cursor: pointer;
+  z-index: 11;
+  transition: background 0.2s;
+}
+
+#lang-btn:hover {
+  background: #f1f1f1;
+}
+
+  </style>
+</head>
+<body>
+
+<div class="footer">
+  <div class="cookzen-title">CookZen</div>
+</div>
+
+  <div class="barre"></div>
+<div class="bottom-nav">
+  <a class="nav-btn" href="index.html">🏠</a>
+  <a class="nav-btn" href="favoris.html">❤️</a>
+  <a class="nav-btn" href="journalier.html">📰</a>
+  <a class="nav-btn" href="parametres.html">⚙️</a>
+</div>
+
+<script>
+
+    const savedTheme = localStorage.getItem('cookzenTheme');
+    if (savedTheme) {
+      document.body.className = savedTheme;
+    }
+
+  function afficheRecette(id) {
+
+  const recette = document.getElementById(id);
+  if (!recette) return;
+
+  if (recette.style.display === 'block') {
+    recette.style.display = 'none';
+  } else {
+    recette.style.display = 'block';
+  }
+}
+</script>
+
+</body>
+
+</html>
