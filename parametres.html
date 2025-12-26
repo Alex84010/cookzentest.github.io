@@ -314,6 +314,7 @@
         font-size: 36px;
       }
     }
+
   </style>
 </head>
 <body>
@@ -361,10 +362,10 @@
 
     <!-- Formulaire de suggestions -->
     <div class="suggestion-form">
-      <h2>💡 Proposer une idée</h2>
+      <h2>Proposer un changement ou une nouvelle recette</h2>
       <form id="suggestionForm">
         <input type="hidden" name="access_key" value="70bfd8f3-04cd-44d5-a0c1-642097376559">
-        <input type="hidden" name="subject" value="Nouvelle idée CookZen">
+        <input type="hidden" name="subject" value="New CookZen">
         
         <div class="form-group">
           <input type="text" name="nom" placeholder="Votre nom" required>
@@ -374,13 +375,14 @@
           <input type="email" name="email" placeholder="Votre email" required>
         </div>
         
-        <div class="form-group">
-          <textarea name="idee_recette" placeholder="Votre idée de recette" required></textarea>
-        </div>
-        
-        <div class="form-group">
-          <textarea name="suggestions" placeholder="Suggestions d'amélioration"></textarea>
-        </div>
+<div class="form-group">
+  <textarea 
+    name="recette_changement"
+    placeholder="Votre recette / demande de changement"
+    required
+    class="auto-resize"
+  ></textarea>
+</div>
         
         <button type="submit" class="submit-btn">Envoyer</button>
       </form>
@@ -436,7 +438,7 @@
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('success') === '1') {
       const messageDiv = document.getElementById('message');
-      messageDiv.innerHTML = 'Merci ! Votre idée a bien été envoyée. 🎉';
+      messageDiv.innerHTML = 'Votre demande a bien été envoyé.';
       messageDiv.className = 'success';
       messageDiv.style.display = 'block';
       
@@ -474,7 +476,7 @@
           const result = await response.json();
           
           if (result.success) {
-            messageDiv.innerHTML = 'Merci ! Votre idée a bien été envoyée. 🎉';
+            messageDiv.innerHTML = 'Votre demande a bien été envoyé.';
             messageDiv.className = 'success';
             messageDiv.style.display = 'block';
             form.reset();
@@ -482,7 +484,7 @@
             throw new Error('Échec de l\'envoi');
           }
         } catch (error) {
-          messageDiv.innerHTML = 'Une erreur est survenue. Veuillez réessayer. ❌';
+          messageDiv.innerHTML = 'Une erreur est survenue. Veuillez réessayer.';
           messageDiv.className = 'error';
           messageDiv.style.display = 'block';
         } finally {
@@ -491,6 +493,15 @@
         }
       });
     }
+  });
+
+    const textareas = document.querySelectorAll('.recetteetchangement');
+
+  textareas.forEach(textarea => {
+    textarea.addEventListener('input', function () {
+      this.style.height = 'auto';
+      this.style.height = this.scrollHeight + 'px';
+    });
   });
 </script>
 
