@@ -363,9 +363,8 @@
     <div class="suggestion-form">
       <h2>💡 Proposer une idée</h2>
       <form id="suggestionForm">
-        <input type="hidden" name="_subject" value="Nouvelle idée CookZen">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="access_key" value="70bfd8f3-04cd-44d5-a0c1-642097376559">
+        <input type="hidden" name="subject" value="Nouvelle idée CookZen">
         
         <div class="form-group">
           <input type="text" name="nom" placeholder="Votre nom" required>
@@ -447,7 +446,7 @@
       }, 3000);
     }
 
-    // Gestion du formulaire AJAX avec FormSubmit
+    // Gestion du formulaire AJAX avec Web3Forms
     const form = document.getElementById('suggestionForm');
     if (form) {
       form.addEventListener('submit', async (e) => {
@@ -459,16 +458,22 @@
         submitBtn.textContent = 'Envoi en cours...';
         
         const formData = new FormData(form);
+        const object = Object.fromEntries(formData);
+        const json = JSON.stringify(object);
         
         try {
-          const response = await fetch('https://formsubmit.co/ajax/cookzen3@gmail.com', {
+          const response = await fetch('https://api.web3forms.com/submit', {
             method: 'POST',
-            body: formData
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: json
           });
           
           const result = await response.json();
           
-          if (response.ok) {
+          if (result.success) {
             messageDiv.innerHTML = 'Merci ! Votre idée a bien été envoyée. 🎉';
             messageDiv.className = 'success';
             messageDiv.style.display = 'block';
